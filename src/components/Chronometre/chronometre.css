@@ -1,0 +1,11 @@
+#chronoTime-buttons {
+    text-align: center;
+}
+
+#timer {
+    width: 50%;
+    font-size: 108px;
+    font-weight: bolder;
+    margin: 0 auto;
+    text-align: center;
+}

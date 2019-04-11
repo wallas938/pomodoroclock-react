@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Chronometre from './components/Chronometre/Chronometre.js'
+import ChronoSession from './components/ChronoSession/ChronoSession.js'
+import ChronoBreak from './components/ChronoBreak/ChronoBreak.js'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div id="pomodoro-clock-app">
+      <h1 id="app-name">Pomodoro Clock</h1>
+        <div class="grid-container">
+          <ChronoSession />
+          <ChronoBreak />
+        </div>
+        <Chronometre />
       </div>
     );
   }
