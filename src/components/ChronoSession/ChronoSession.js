@@ -3,15 +3,17 @@ import './chronoSession.css'
 function ChronoSession(props) {
 
     return(
-        <div id="session-block-buttons" class="grid-item">
+        <div id="session-block-buttons" className="grid-item">
 			<h1>Durée de la session</h1>
-			<p id="sessionLength">1</p>
-			<button id="sessionIncrementer">
-				<i class="fas fa-arrow-up"></i>
-			</button>
-			<button id="sessionDecrementer">
-				<i class="fas fa-arrow-down"></i>
-			</button>
+			<p className="digit" id="sessionLength">1</p>
+			<div className="arrows">	
+				<button id="sessionIncrementer" className="btn btn-secondary">
+					<i className="fas fa-arrow-up"></i>
+				</button>
+				<button id="sessionDecrementer" className="btn btn-secondary">
+					<i className="fas fa-arrow-down"></i>
+				</button>
+			</div>
 		</div>
     )
 }

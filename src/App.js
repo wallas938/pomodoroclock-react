@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div id="pomodoro-clock-app">
       <h1 id="app-name">Pomodoro Clock</h1>
-        <div class="grid-container">
+        <div className="grid-container">
           <ChronoSession />
           <ChronoBreak />
         </div>

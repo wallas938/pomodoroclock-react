@@ -5,15 +5,17 @@ function ChronoBreak(props) {
 
     return(
 
-        <div id="breack-block-buttons" class="grid-item">
+        <div id="break-block-buttons" className="grid-item">
             <h1>Durée de la Pause</h1>
-            <p id="breakLength">1</p>
-            <button id="breakIncrementer">
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            <button id="breakDecrementer">
-                <i class="fas fa-arrow-down"></i>
-            </button>
+            <p className="digit" id="breakLength">1</p>
+            <div className="arrows">	
+                <button id="breakIncrementer" className="btn btn-secondary">
+                    <i className="fas fa-arrow-up"></i>
+                </button>
+                <button id="breakDecrementer" className="btn btn-secondary">
+                    <i className="fas fa-arrow-down"></i>
+                </button>
+            </div>
         </div>
 
     )

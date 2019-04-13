@@ -1,17 +1,44 @@
-#app-name {
-    text-align: center;
-    color: crimson;
+* {
+    margin: 0;
+    padding: 0;
+    background-color: dimgrey;
+}
+
+@font-face {
+    font-family: digitalFont;
+    src: url(fonts/digital-7/digital-7.ttf);
 }
 
 #pomodoro-clock-app {
     width: 100%;
+    margin: 5% auto;
+    color: antiquewhite;
 }
 
-.grid-container {
+#app-name {
+    text-align: center;
+    color: darksalmon;
+    margin-bottom: 5%;
+}
+
+
+#pomodoro-clock-app .grid-container {
     text-align: center;
     margin: 0 auto;
     display: grid;
     grid-template-columns: auto auto;
+    font-family: 'Arvo', serif;
+}
+
+.arrows {
+}
+
+.digit {
+    font-family: digitalFont;
+}
+
+button i{
+    background-color: unset;
 }
 
 #breakLength, #sessionLength {
