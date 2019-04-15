@@ -30,15 +30,19 @@
     font-family: 'Arvo', serif;
 }
 
-.arrows {
+.arrows button {
+    width: 70px;
+    margin: 0 10px;
 }
 
 .digit {
     font-family: digitalFont;
+    color: khaki;
 }
 
 button i{
     background-color: unset;
+    color: yellowgreen;
 }
 
 #breakLength, #sessionLength {
