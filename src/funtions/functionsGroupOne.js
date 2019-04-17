@@ -30,43 +30,37 @@ function unitSecondeDecrementer(toBeDecremented) {
 	return toBeDecremented
 }
 
-function uniteMinuteDecrementer(toBeDecremented) {
+function unitMinuteDecrementer(toBeDecremented) {
 
-	let intNumber = Number(toBeDecremented.innerHTML)
+	toBeDecremented = Number(toBeDecremented)
 
-	let intNumberDecremented = intNumber == 0 ? 9 : intNumber - 1
+	toBeDecremented = toBeDecremented === 0 ? 9 : toBeDecremented - 1
 
-	let unit = intNumberDecremented
-
-	toBeDecremented.innerHTML = unit
+	return toBeDecremented
 
 }
 
 function dizaineSecondeDecrementer(toBeDecremented) {
 
-	let intNumber = Number(toBeDecremented.innerHTML)
+	toBeDecremented = Number(toBeDecremented)
 
-	let intNumberDecremented = intNumber == 0 ? 5 : intNumber - 1
+	toBeDecremented = toBeDecremented === 0 ? 5 : toBeDecremented - 1
 
-	let unit = intNumberDecremented
-
-	toBeDecremented.innerHTML = unit
+	return toBeDecremented
 
 }
 
 function dizaineMinuteDecrementer(toBeDecremented) {
 
-	let intNumber = Number(toBeDecremented.innerHTML)
+	toBeDecremented = Number(toBeDecremented)
 
-	let intNumberDecremented = intNumber == 0 ? 5 : intNumber - 1
+	toBeDecremented = toBeDecremented === 0 ? 5 : toBeDecremented - 1
 
-	let unit = intNumberDecremented
-
-	toBeDecremented.innerHTML = unit
+	return toBeDecremented
 }
 
 export { 
 		incrementer, decrementer, unitSecondeDecrementer, 
-		uniteMinuteDecrementer, dizaineSecondeDecrementer,
+		unitMinuteDecrementer, dizaineSecondeDecrementer,
 		dizaineMinuteDecrementer
 	}

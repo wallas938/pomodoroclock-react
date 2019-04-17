@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { incrementer, decrementer, unitSecondeDecrementer, 
-  uniteMinuteDecrementer, dizaineSecondeDecrementer,
+  unitMinuteDecrementer, dizaineSecondeDecrementer,
   dizaineMinuteDecrementer } from './funtions/functionsGroupOne.js'
 import './App.css';
 import Chronometre from './components/Chronometre/Chronometre.js'
@@ -15,6 +15,7 @@ class App extends Component {
     this.state = {
       sessionLength: "10",
       breakLength: "1",
+      isSessionLaunched: false,
       chrono: {
         dizaineMinute: "0",
         unitMinute: "0",
@@ -23,13 +24,14 @@ class App extends Component {
       }
     }
 
-    this.compteur = this.compteur.bind(this)
+    this.timer = this.timer.bind(this)
     this.timeHandler = this.timeHandler.bind(this)
     this.lengthSessionHandler = this.lengthSessionHandler.bind(this)
     this.lengthBreakHandler = this.lengthBreakHandler.bind(this)
     this.sessionInitialisation = this.sessionInitialisation.bind(this)
     this.breakInitialisation = this.breakInitialisation.bind(this)
-    this.unitSeconHandler = this.unitSeconHandler.bind(this)
+    this.compteur = this.compteur.bind(this)
+    this.startAndPauseSession = this.startAndPauseSession.bind(this)
   }
 
   componentDidMount() {
@@ -97,28 +99,50 @@ class App extends Component {
     
   }
 
-  unitSeconHandler() {
-
-    let currentUnitSecond = this.state.chrono.unitSecond
-
-    let unitSecondeDecremented = unitSecondeDecrementer(currentUnitSecond)
-
-    this.setState({
-      chrono: {
-        unitSecond: unitSecondeDecremented
-      }
-    })
-  }
-
   compteur() {
 
-    let timer = setInterval(this.unitSeconHandler, 1000)
+    let currentdizaineMinute = this.state.chrono.dizaineMinute, currentunitMinute = this.state.chrono.unitMinute, currentdizaineSecond = this.state.chrono.dizaineSecond, currentUnitSecond = this.state.chrono.unitSecond
+
+    let dizaineMinuteDecremented = currentunitMinute <= "0" && currentdizaineSecond <= "0" && currentUnitSecond <= "0" ? dizaineMinuteDecrementer(currentdizaineMinute) : currentdizaineMinute
+    
+    let unitMinuteDecremented = currentdizaineSecond <= "0" && currentUnitSecond <= "0" ? unitMinuteDecrementer(currentunitMinute) : currentunitMinute
+    
+    let dizaineSecondeDecremented = currentUnitSecond <= "0" ? dizaineSecondeDecrementer(currentdizaineSecond) : currentdizaineSecond
+    
+    let unitSecondeDecremented = unitSecondeDecrementer(currentUnitSecond)
+    
+    this.setState((prevState, prevProps)=>({
+      chrono: {
+        dizaineMinute: dizaineMinuteDecremented,
+        unitMinute: unitMinuteDecremented,
+        dizaineSecond: dizaineSecondeDecremented,
+        unitSecond: unitSecondeDecremented
+      }
+    }))
+  }
+
+  timer() {
+
+    let timer = setInterval(this.compteur, 1000)
 
   }
 
+  //A REVOIR !!!
+
+  startAndPauseSession() {
+
+    this.setState((prevState, prevProps) => ({
+      isSessionLaunched: !prevState.isSessionLaunched
+    }))
+    
+  }
+
+  //A REVOIR !!!
+  
   timeHandler() {
 
-    this.compteur()
+
+  this.state.isSessionLaunched ? clearInterval(this.timer) : this.timer()
 
   }
 
