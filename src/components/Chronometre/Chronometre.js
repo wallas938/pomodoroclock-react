@@ -1,7 +1,8 @@
 import React from 'react'
 import './chronometre.css'
 
-function Chronometre({ chrono, timeHandler }) {
+function Chronometre({ chrono, timeHandler, reset }) {
+
 
     return(
 
@@ -11,7 +12,7 @@ function Chronometre({ chrono, timeHandler }) {
 					id="dizaine-seconde">{ chrono.dizaineSecond }</span><span id="unite-seconde">{ chrono.unitSecond }</span>
 			</div>
 			<div id="chronometre-buttons">
-				<button type="button" id="reset" className="btn btn-info">
+				<button type="button" id="reset" className="btn btn-info" onClick={reset}>
 					<i className="fas fa-redo-alt"></i>
 				</button>
 				<button type="button" id="pause-play" className="btn btn-danger" onClick={timeHandler}>

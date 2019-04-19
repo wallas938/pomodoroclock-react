@@ -33,6 +33,7 @@ class App extends Component {
     }
 
     this.starter = this.starter.bind(this)
+    this.reset = this.reset.bind(this)
     this.timeHandler = this.timeHandler.bind(this)
     this.timerInit = this.timerInit.bind(this)
     this.lengthSessionHandler = this.lengthSessionHandler.bind(this)
@@ -333,6 +334,19 @@ class App extends Component {
 
   }
 
+  reset() {
+    this.setState({
+      isBreakLaunched: false,
+      isBreakTimeElapsed: false,
+      isPaused: true,
+      isSessionLaunched: false,
+      isSessionTimeElapsed: false,
+      isStarted: false
+    }, () => {
+      this.sessionInitialisation()
+    })
+  }
+
   render() {
 
     return (
@@ -342,7 +356,7 @@ class App extends Component {
           <ChronoSession sessionLength={this.state.sessionLength} lengthSessionHandler={this.lengthSessionHandler} />
           <ChronoBreak breakLength={this.state.breakLength} lengthBreakHandler={this.lengthBreakHandler}/>
         </div>
-        <Chronometre chrono={this.state.chrono} timeHandler={this.timeHandler}/>
+        <Chronometre chrono={this.state.chrono} timeHandler={this.timeHandler} reset={this.reset}/>
       </div>
     );
   }
