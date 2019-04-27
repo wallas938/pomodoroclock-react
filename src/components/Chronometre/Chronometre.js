@@ -1,13 +1,16 @@
 import React from 'react'
 import './chronometre.css'
 
-function Chronometre({ chrono, timeHandler, reset }) {
+function Chronometre({ chrono, timeHandler, reset, currentColor, blinkingClass }) {
 
+let chronoStyle = { color: currentColor }
+
+let chronoClasses = blinkingClass + " digit"
 
     return(
 
         <div id="chronometre-block">
-			<div className="digit" id="chronometre">
+			<div style={chronoStyle} className={chronoClasses} id="chronometre">
 				<span id="dizaine-minute">{ chrono.dizaineMinute }</span><span id="unite-minute">{ chrono.unitMinute }</span>:<span
 					id="dizaine-seconde">{ chrono.dizaineSecond }</span><span id="unite-seconde">{ chrono.unitSecond }</span>
 			</div>

@@ -1,7 +1,9 @@
 import React from 'react';
 import './chronoBreak.css'
 
-function ChronoBreak({ breakLength, lengthBreakHandler }) {
+function ChronoBreak({ breakLength, lengthBreakHandler, breakColor }) {
+
+    let breakStyle = { color: breakColor }
 
     function incrementHandler() {
 
@@ -25,7 +27,7 @@ function ChronoBreak({ breakLength, lengthBreakHandler }) {
 
         <div id="break-block-buttons" className="grid-item">
             <h1>Durée de la Pause</h1>
-            <p className="digit" id="breakLength">{breakLength}</p>
+            <p style={breakStyle} className="digit" id="breakLength">{breakLength}</p>
             <div className="arrows">	
                 <button id="breakIncrementer" className="btn btn-secondary" onClick={incrementHandler}>
                     <i className="fas fa-arrow-up"></i>

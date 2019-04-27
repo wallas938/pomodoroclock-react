@@ -1,6 +1,8 @@
 import React  from 'react'
 import './chronoSession.css'
-function ChronoSession({ sessionLength, lengthSessionHandler }) {
+function ChronoSession({ sessionLength, lengthSessionHandler, sessionColor }) {
+
+	let sessionStyle = { color: sessionColor }
 
 	function incrementHandler() {
 
@@ -23,7 +25,7 @@ function ChronoSession({ sessionLength, lengthSessionHandler }) {
     return(
         <div id="session-block-buttons" className="grid-item">
 			<h1>Durée de la session</h1>
-			<p className="digit" id="sessionLength">{sessionLength}</p>
+			<p style={sessionStyle} className="digit" id="sessionLength">{sessionLength}</p>
 			<div className="arrows">	
 				<button id="sessionIncrementer" className="btn btn-secondary" onClick={incrementHandler}>
 					<i className="fas fa-arrow-up"></i>

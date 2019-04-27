@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { incrementer, decrementer, unitSecondeDecrementer, 
-  unitMinuteDecrementer, dizaineSecondeDecrementer,
-  dizaineMinuteDecrementer } from './funtions/functionsGroupOne.js'
+import { unitSecondeDecrementer, unitMinuteDecrementer, dizaineSecondeDecrementer, dizaineMinuteDecrementer } from './funtions/functionsGroupOne.js'
 import './App.css';
 import Chronometre from './components/Chronometre/Chronometre.js'
 import ChronoSession from './components/ChronoSession/ChronoSession.js'
@@ -29,7 +27,11 @@ class App extends Component {
         unitMinute: "0",
         dizaineSecond: "0",
         unitSecond: "0" ,
-      }
+      },
+      colors: {
+      sessionColor: "#d0d3d4",
+      breakColor: "#FF6347",
+     }
     }
 
     this.starter = this.starter.bind(this)
@@ -306,10 +308,29 @@ class App extends Component {
   }
 
   lengthSessionHandler(sessionLengthIncremented) {
+
+    let isSessionLaunched = this.state.isSessionLaunched
+
+    let isBreakLaunched = this.state.isBreakLaunched
+
+    let isPaused = this.state.isPaused
+
+    let isStarted = this.state.isStarted
+  
     this.setState({
       sessionLength: `${sessionLengthIncremented}`
     }, () => {
-      this.sessionInitialisation()
+
+      if(!isStarted) {
+
+        this.sessionInitialisation()
+
+      }else if((isPaused && isBreakLaunched) || (isSessionLaunched && isPaused)) {
+        
+          this.sessionInitialisation()
+      }
+      
+      
     })
 
   }
@@ -318,8 +339,6 @@ class App extends Component {
 
     this.setState({
       breakLength: `${breakLengthIncremented}`
-    }, () => {
-      //this.sessionInitialisation()
     })
 
   }
@@ -335,6 +354,7 @@ class App extends Component {
   }
 
   reset() {
+
     this.setState({
       isBreakLaunched: false,
       isBreakTimeElapsed: false,
@@ -349,15 +369,40 @@ class App extends Component {
 
   render() {
 
+    let isBreakLaunched = this.state.isBreakLaunched
+
+    let isPaused = this.state.isPaused
+
+    let currentColor = isBreakLaunched && !isPaused ? this.state.colors.breakColor : this.state.colors.sessionColor;
+    
+    let isBreakTimeElapsed = this.state.isBreakTimeElapsed
+
+    let isSessionTimeElapsed = this.state.isSessionTimeElapsed
+
+    let isStarted = this.state.isPaused
+
+    let chronometre;
+
+    if(isSessionTimeElapsed && isPaused && !isBreakTimeElapsed) {
+
+      chronometre = <Chronometre blinkingClass="disapear" currentColor={currentColor} chrono={this.state.chrono} timeHandler={this.timeHandler} reset={this.reset}/>
+          
+    }else {
+
+      chronometre = <Chronometre blinkingClass="" currentColor={currentColor} chrono={this.state.chrono} timeHandler={this.timeHandler} reset={this.reset}/>
+    }
+    
     return (
       <div id="pomodoro-clock-app">
       <h1 id="app-name">Pomodoro Clock</h1>
         <div className="grid-container">
-          <ChronoSession sessionLength={this.state.sessionLength} lengthSessionHandler={this.lengthSessionHandler} />
-          <ChronoBreak breakLength={this.state.breakLength} lengthBreakHandler={this.lengthBreakHandler}/>
+          <ChronoSession sessionColor={this.state.colors.sessionColor} sessionLength={this.state.sessionLength} lengthSessionHandler={this.lengthSessionHandler} />
+          <ChronoBreak breakColor={this.state.colors.breakColor} breakLength={this.state.breakLength} lengthBreakHandler={this.lengthBreakHandler}/>
         </div>
-        <Chronometre chrono={this.state.chrono} timeHandler={this.timeHandler} reset={this.reset}/>
-      </div>
+
+          { chronometre }
+
+        </div>
     );
   }
 
