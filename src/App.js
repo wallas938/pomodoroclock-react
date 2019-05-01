@@ -4,7 +4,10 @@ import './App.css';
 import Chronometre from './components/Chronometre/Chronometre.js'
 import ChronoSession from './components/ChronoSession/ChronoSession.js'
 import ChronoBreak from './components/ChronoBreak/ChronoBreak.js'
+import ReactAudioPlayer from 'react-audio-player';
+import Alarm from '../src/sons/alarm.mp3'
 
+var play = false
 
 class App extends Component {
 
@@ -22,6 +25,7 @@ class App extends Component {
       sessionLength: "10",
       breakLength: "1",
       isPaused: true,
+      play: false,
       chrono: {
         dizaineMinute: "0",
         unitMinute: "0",
@@ -93,8 +97,6 @@ class App extends Component {
 
     }else if((!isSessionTimeElapsed && isSessionLaunched) || (!isBreakTimeElapsed && isBreakLaunched)) {
       
-      console.log('Entrer')
-      
       if(!isPaused) {
     
         clearInterval(this.intervalID)
@@ -132,22 +134,22 @@ class App extends Component {
 
     if(`${currentdizaineMinute}` === "0" && `${currentunitMinute}` === "0" &&  `${currentdizaineSecond}` === "0" && `${currentUnitSecond}` === "0" && !isSessionTimeElapsed || `${currentdizaineMinute}` === "0" && `${currentunitMinute}` === "0" &&  `${currentdizaineSecond}` === "0" && `${currentUnitSecond}` === "0" && !isBreakTimeElapsed ) {
 
-      if(isSessionLaunched) {
+      if(isSessionLaunched && !isSessionTimeElapsed) {
 
         this.setState(() =>({
 
           isSessionTimeElapsed: true,
           isPaused: true,
-
+          isSessionLaunched: false
         }))
 
-      }else if(isBreakLaunched) {
+      }else if(isBreakLaunched && !isBreakTimeElapsed) {
 
         this.setState(() =>({
 
           isBreakTimeElapsed: true,
           isPaused: true,
-          
+          isBreakLaunched: false
         }))
 
       }
@@ -225,21 +227,14 @@ class App extends Component {
 
     let isSessionLaunched = this.state.isSessionLaunched
     
-    if(!isBreakLaunched && isSessionTimeElapsed) {
-
-      this.breakStateHandler()
-
-      this.sessionStateHandler()
+    if( isSessionTimeElapsed ) {
 
       setTimeout(this.breakInitialisation, 5000) 
 
-    }else if(!isSessionLaunched && isBreakTimeElapsed){
-
-      this.sessionStateHandler()
-
-      this.breakStateHandler()
-
+    }else if( isBreakTimeElapsed ){
+      
       setTimeout(this.sessionInitialisation, 5000)
+
     }
   }
 
@@ -266,9 +261,11 @@ class App extends Component {
   breakInitialisation() {
 
     let breakLength = this.state.breakLength
-
+    
     this.setState({
       isBreakTimeElapsed: false,
+      isSessionTimeElapsed: false,
+      isBreakLaunched: true,
       chrono: {
         dizaineMinute: `${breakLength}`.length > 1 ? `${breakLength[0]}` : "0",
         unitMinute:  `${breakLength}`.length === 1 ? `${breakLength[0]}` : `${breakLength[1]}`,
@@ -277,7 +274,7 @@ class App extends Component {
       }
     }, () => {
       
-        this.timeHandler()
+      this.timeHandler()
       
     })
     
@@ -288,7 +285,9 @@ class App extends Component {
     let sessionLength = `${this.state.sessionLength}`
 
     this.setState({
+      isBreakTimeElapsed: false,
       isSessionTimeElapsed: false,
+      isSessionLaunched: true,
       chrono: {
         dizaineMinute: `${sessionLength}`.length > 1 ? `${sessionLength[0]}` : "0",
         unitMinute:  `${sessionLength}`.length === 1 ? `${sessionLength[0]}` : `${sessionLength[1]}`,
@@ -296,7 +295,7 @@ class App extends Component {
         unitSecond: "0"
       }
     }, () => {
-
+      
       let isStarted = this.state.isStarted
       
       if(isStarted) {
@@ -383,13 +382,22 @@ class App extends Component {
 
     let chronometre;
 
-    if(isSessionTimeElapsed && isPaused && !isBreakTimeElapsed) {
+    if( isSessionTimeElapsed && isPaused ) {
 
       chronometre = <Chronometre blinkingClass="disapear" currentColor={currentColor} chrono={this.state.chrono} timeHandler={this.timeHandler} reset={this.reset}/>
-          
+      
+      play = true
+
+      var audio = <audio id="alarm" autoPlay={ play }>
+        <source src={ Alarm }>
+        </source>
+      </audio>
+
     }else {
 
       chronometre = <Chronometre blinkingClass="" currentColor={currentColor} chrono={this.state.chrono} timeHandler={this.timeHandler} reset={this.reset}/>
+    
+      play = false
     }
     
     return (
@@ -402,6 +410,8 @@ class App extends Component {
 
           { chronometre }
 
+          { audio ? audio : null }
+        
         </div>
     );
   }
