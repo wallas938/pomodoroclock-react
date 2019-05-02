@@ -7,7 +7,7 @@ let chronoStyle = { color: currentColor }
 
 let chronoClasses = blinkingClass + " digit"
 
-    return(
+    return (
 
         <div id="chronometre-block">
 			<div style={chronoStyle} className={chronoClasses} id="chronometre">
