@@ -248,17 +248,11 @@ class App extends Component {
       isBreakTimeElapsed: false,
       isSessionTimeElapsed: false,
       isBreakLaunched: true,
-      /*chrono: {
+      chrono: {
         dizaineMinute: `${breakLength}`.length > 1 ? `${breakLength[0]}` : "0",
         unitMinute:  `${breakLength}`.length === 1 ? `${breakLength[0]}` : `${breakLength[1]}`,
         dizaineSecond: "0",
         unitSecond: "0",
-      }*/
-      chrono: {
-        dizaineMinute: "0",
-        unitMinute: "0",
-        dizaineSecond: "0",
-        unitSecond: "3"
       }
     }, () => {
       
@@ -276,17 +270,11 @@ class App extends Component {
       isBreakTimeElapsed: false,
       isSessionTimeElapsed: false,
       isSessionLaunched: true,
-      /*-chrono: {
+      chrono: {
         dizaineMinute: `${sessionLength}`.length > 1 ? `${sessionLength[0]}` : "0",
         unitMinute:  `${sessionLength}`.length === 1 ? `${sessionLength[0]}` : `${sessionLength[1]}`,
         dizaineSecond: "0",
         unitSecond: "0"
-      }*/
-      chrono: {
-        dizaineMinute: "0",
-        unitMinute: "0",
-        dizaineSecond: "0",
-        unitSecond: "3"
       }
     }, () => {
       
@@ -377,7 +365,7 @@ class App extends Component {
 
     let isSessionTimeElapsed = this.state.isSessionTimeElapsed
 
-    let chronometre;
+    let chronometre, audio;
 
     if( isSessionTimeElapsed && isPaused ) {
 
@@ -385,7 +373,7 @@ class App extends Component {
       
       play1 = true
 
-      var audio = <audio id="alarm" autoPlay={ play1 }><source src={ Alarm }></source></audio>
+      audio = <audio id="alarm" autoPlay={ play1 }><source src={ Alarm }></source></audio>
 
     }else if( isBreakTimeElapsed && isPaused ) {
 
@@ -393,7 +381,7 @@ class App extends Component {
       
       play2 = true
 
-      var audio = <audio id="alarm2" autoPlay={ play2 }><source src={ Alarm2 }></source></audio>
+      audio = <audio id="alarm2" autoPlay={ play2 }><source src={ Alarm2 }></source></audio>
 
     }else {
 
